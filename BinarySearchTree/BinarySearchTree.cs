@@ -9,7 +9,6 @@ namespace BinarySearchTree
     class BinarySearchTree
     {
         //Member Variables
-        int value;
         Node root;
         
 
@@ -22,21 +21,58 @@ namespace BinarySearchTree
         public void Add(int data)
         {
             Node newNode = new Node(data);
+            Node parent;
             Node current;
-            Node temp;
 
             if (root == null)
             {
+                Console.WriteLine($"{newNode.data} inserted as root");
                 root = newNode;
+                return;
             }
-            else
-            {
-                current = root;
-                temp = current;
 
+            current = root;
+
+            while (current != null)
+            {
+                parent = current;
                 if(newNode.data < current.data)
                 {
-
+                   if(current.leftNode != null)
+                    {
+                        Console.WriteLine(current.data);
+                        current = current.leftNode;
+                        continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine(current.data);
+                        Console.WriteLine($"{newNode.data} inserted");
+                        parent.leftNode = newNode;
+                        break;
+                    }
+                }
+                else if (newNode.data > current.data)
+                {
+                    if (current.rightNode != null)
+                    {
+                        Console.WriteLine(current.data);
+                        current = current.rightNode;
+                        continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine(current.data);
+                        Console.WriteLine($"{newNode.data} inserted");
+                        parent.rightNode = newNode;
+                        break;
+                    }
+                }
+                else if(newNode.data == current.data)
+                {
+                    Console.WriteLine("Current Data matches current node.  Counter Increased");
+                    current.counter++; //Counter used to keep track of duplicate values added.  
+                    break;
                 }
             }
 
@@ -48,23 +84,36 @@ namespace BinarySearchTree
             Node current;
             current = root;
 
-            while (true)
+            while (current != null)
             {
                 if (data == current.data)
                     return true;
-                else if(data < current.data && current.leftNode != null)
+                else if(data < current.data)
                 {
-                    current = current.leftNode;
+                    if(current.leftNode == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        current = current.leftNode;
+                        continue;
+                    }  
                 }
-                else if (data > current.data && current.rightNode != null)
+                else if (data > current.data)
                 {
-                    current = current.rightNode;
-                }
-                else
-                {
-                    return false;
+                    if (current.rightNode == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        current = current.rightNode;
+                        continue;
+                    }
                 }
             }
+            return false;
             
         }
     }

@@ -11,10 +11,14 @@ namespace BinarySearchTree
         public int data;
         public Node leftNode;
         public Node rightNode;
+        public int counter;
 
         public Node(int data)
         {
             this.data = data;
+            leftNode = null;
+            rightNode = null;
+            counter = 0;
             
         }
     }
